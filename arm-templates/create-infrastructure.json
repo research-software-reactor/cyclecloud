@@ -12,27 +12,27 @@
             "defaultValue": "westeurope",
             "type": "string"
         },
-        "storageAccounts_myresourcegroupdiag_name": {
-            "defaultValue": "myresourcegroupdiag",
+        "storageAccountName": {
+            "defaultValue": "cycleclouddiag",
             "type": "string"
         },
-        "virtualMachines_CycleCloudVm01_name": {
+        "virtualMachineName": {
             "defaultValue": "CycleCloudVm01",
             "type": "string"
         },
-        "virtualNetworks_MYRESOURCEGROUP_vnet_name": {
-            "defaultValue": "MYRESOURCEGROUP-vnet",
+        "virtualNetworkName": {
+            "defaultValue": "CycleCloud-vnet",
             "type": "string"
         },
-        "networkInterfaces_cyclecloudvm01707_name": {
+        "networkInterfaceName": {
             "defaultValue": "cyclecloudvm01707",
             "type": "string"
         },
-        "publicIPAddresses_CycleCloudVm01_ip_name": {
+        "publicIPAddressName": {
             "defaultValue": "CycleCloudVm01-ip",
             "type": "string"
         },
-        "networkSecurityGroups_CycleCloudVm01_nsg_name": {
+        "networkSecurityGroupName": {
             "defaultValue": "CycleCloudVm01-nsg",
             "type": "string"
         }
@@ -47,7 +47,7 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2018-12-01",
-            "name": "[parameters('networkSecurityGroups_CycleCloudVm01_nsg_name')]",
+            "name": "[parameters('networkSecurityGroupName')]",
             "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
@@ -238,7 +238,7 @@
         {
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2018-12-01",
-            "name": "[parameters('publicIPAddresses_CycleCloudVm01_ip_name')]",
+            "name": "[parameters('publicIPAddressName')]",
             "location": "[parameters('azure_region')]",
             "sku": {
                 "name": "Basic",
@@ -256,7 +256,7 @@
         {
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2018-12-01",
-            "name": "[parameters('virtualNetworks_MYRESOURCEGROUP_vnet_name')]",
+            "name": "[parameters('virtualNetworkName')]",
             "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
@@ -279,7 +279,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
-            "name": "[parameters('storageAccounts_myresourcegroupdiag_name')]",
+            "name": "[parameters('storageAccountName')]",
             "location": "[parameters('azure_region')]",
             "sku": {
                 "name": "Standard_LRS",
@@ -310,9 +310,9 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2018-12-01",
-            "name": "[concat(parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'), '/default-allow-ssh')]",
+            "name": "[concat(parameters('networkSecurityGroupName'), '/default-allow-ssh')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
             ],
             "properties": {
                 "provisioningState": "Succeeded",
@@ -333,9 +333,9 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2018-12-01",
-            "name": "[concat(parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'), '/HTTP')]",
+            "name": "[concat(parameters('networkSecurityGroupName'), '/HTTP')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
             ],
             "properties": {
                 "provisioningState": "Succeeded",
@@ -356,9 +356,9 @@
         {
             "type": "Microsoft.Network/networkSecurityGroups/securityRules",
             "apiVersion": "2018-12-01",
-            "name": "[concat(parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'), '/HTTPS')]",
+            "name": "[concat(parameters('networkSecurityGroupName'), '/HTTPS')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'))]"
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
             ],
             "properties": {
                 "provisioningState": "Succeeded",
@@ -379,9 +379,9 @@
         {
             "type": "Microsoft.Network/virtualNetworks/subnets",
             "apiVersion": "2018-12-01",
-            "name": "[concat(parameters('virtualNetworks_MYRESOURCEGROUP_vnet_name'), '/default')]",
+            "name": "[concat(parameters('virtualNetworkName'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworks_MYRESOURCEGROUP_vnet_name'))]"
+                "[resourceId('Microsoft.Network/virtualNetworks', parameters('virtualNetworkName'))]"
             ],
             "properties": {
                 "provisioningState": "Succeeded",
@@ -391,11 +391,11 @@
         {
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2018-10-01",
-            "name": "[parameters('virtualMachines_CycleCloudVm01_name')]",
+            "name": "[parameters('virtualMachineName')]",
             "location": "[parameters('azure_region')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_cyclecloudvm01707_name'))]",
-                "[resourceId('Microsoft.Storage/StorageAccounts', parameters('storageAccounts_myresourcegroupdiag_name'))]"
+                "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]",
+                "[resourceId('Microsoft.Storage/StorageAccounts', parameters('storageAccountName'))]"
             ],
             "identity": {
                 "type": "SystemAssigned"
@@ -418,32 +418,32 @@
                     },
                     "osDisk": {
                         "osType": "Linux",
-                        "name": "[concat(parameters('virtualMachines_CycleCloudVm01_name'), '_OsDisk_1_bdbab551dae84005af7aa558202b5e63')]",
+                        "name": "[concat(parameters('virtualMachineName'), '_OsDisk_1_bdbab551dae84005af7aa558202b5e63')]",
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
                             "storageAccountType": "StandardSSD_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_CycleCloudVm01_name'), '_OsDisk_1_bdbab551dae84005af7aa558202b5e63'))]"
+                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachineName'), '_OsDisk_1_bdbab551dae84005af7aa558202b5e63'))]"
                         },
                         "diskSizeGB": 30
                     },
                     "dataDisks": [
                         {
                             "lun": 0,
-                            "name": "[concat(parameters('virtualMachines_CycleCloudVm01_name'), '_lun_0_2_b686bc31c0ec4d1f924b6b3cc3575727')]",
+                            "name": "[concat(parameters('virtualMachineName'), '_lun_0_2_b686bc31c0ec4d1f924b6b3cc3575727')]",
                             "createOption": "FromImage",
                             "caching": "ReadOnly",
                             "writeAcceleratorEnabled": false,
                             "managedDisk": {
                                 "storageAccountType": "StandardSSD_LRS",
-                                "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachines_CycleCloudVm01_name'), '_lun_0_2_b686bc31c0ec4d1f924b6b3cc3575727'))]"
+                                "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachineName'), '_lun_0_2_b686bc31c0ec4d1f924b6b3cc3575727'))]"
                             },
                             "diskSizeGB": 128
                         }
                     ]
                 },
                 "osProfile": {
-                    "computerName": "[parameters('virtualMachines_CycleCloudVm01_name')]",
+                    "computerName": "[parameters('virtualMachineName')]",
                     "adminUsername": "[parameters('vm_admin_username')]",
                     "adminPassword": "[parameters('vm_admin_password')]",
                     "linuxConfiguration": {
@@ -456,14 +456,14 @@
                 "networkProfile": {
                     "networkInterfaces": [
                         {
-                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_cyclecloudvm01707_name'))]"
+                            "id": "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaceName'))]"
                         }
                     ]
                 },
                 "diagnosticsProfile": {
                     "bootDiagnostics": {
                         "enabled": true,
-                        "storageUri": "[concat('https://', parameters('storageAccounts_myresourcegroupdiag_name'), '.blob.core.windows.net/')]"
+                        "storageUri": "[concat('https://', parameters('storageAccountName'), '.blob.core.windows.net/')]"
                     }
                 }
             }
@@ -471,12 +471,12 @@
         {
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-12-01",
-            "name": "[parameters('networkInterfaces_cyclecloudvm01707_name')]",
+            "name": "[parameters('networkInterfaceName')]",
             "location": "[parameters('azure_region')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CycleCloudVm01_ip_name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_MYRESOURCEGROUP_vnet_name'), 'default')]",
-                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'))]"
+                "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddressName'))]",
+                "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), 'default')]",
+                "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
             ],
             "properties": {
                 "provisioningState": "Succeeded",
@@ -489,10 +489,10 @@
                             "provisioningState": "Succeeded",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
-                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CycleCloudVm01_ip_name'))]"
+                                "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddressName'))]"
                             },
                             "subnet": {
-                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_MYRESOURCEGROUP_vnet_name'), 'default')]"
+                                "id": "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworkName'), 'default')]"
                             },
                             "primary": true,
                             "privateIPAddressVersion": "IPv4"
@@ -502,7 +502,7 @@
                 "enableAcceleratedNetworking": false,
                 "enableIPForwarding": false,
                 "networkSecurityGroup": {
-                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroups_CycleCloudVm01_nsg_name'))]"
+                    "id": "[resourceId('Microsoft.Network/networkSecurityGroups', parameters('networkSecurityGroupName'))]"
                 },
                 "primary": true,
                 "tapConfigurations": []
