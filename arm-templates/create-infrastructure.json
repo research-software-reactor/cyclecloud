@@ -37,12 +37,6 @@
             "type": "string"
         }
     },
-    "variables": {
-        "guidNsg": "[newGuid()]",
-        "guidPublicIpAddress": "[newGuid()]",
-        "guidVnet": "[newGuid()]",
-        "guidNetworkInterface": "[newGuid()]"
-    },
     "resources": [
         {
             "type": "Microsoft.Network/networkSecurityGroups",
@@ -51,7 +45,6 @@
             "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidNsg')]",
                 "securityRules": [
                     {
                         "name": "HTTPS",
@@ -246,7 +239,6 @@
             },
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidPublicIpAddress')]",
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4,
@@ -260,7 +252,6 @@
             "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidVnet')]",
                 "subnets": [
                     {
                         "name": "default",
@@ -480,7 +471,6 @@
             ],
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidNetworkInterface')]",
                 "ipConfigurations": [
                     {
                         "name": "ipconfig1",
