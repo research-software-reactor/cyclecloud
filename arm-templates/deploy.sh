@@ -116,6 +116,8 @@ echo "Starting deployment..."
 	az group deployment create --name "$deploymentName" --resource-group "$resourceGroupName" --template-file "$templateFilePath" --parameters "@${parametersFilePath}"
 )
 
+# TODO: attempt assigning Contributor role to newly-provisioned VM
+
 if [ $?  == 0 ];
  then
 	echo "Template has been successfully deployed"
