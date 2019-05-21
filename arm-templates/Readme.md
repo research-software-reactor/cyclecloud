@@ -7,6 +7,6 @@ https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-tem
 
 ## ARM Templates
 
-The Azure Resource Manager template, or ARM template, are JSON files that describes the resources, like app services, databases and storage accounts, you want to have in Azure. Azure can process this template and create or update our resources based on the template. This is also called Infrastructure as Code or (IaC). 
+The Azure Resource Manager template, or ARM template, are JSON files that describes the resources, like app services, databases and storage accounts, you want to have in Azure. Azure can process this template and create or update our resources based on the template. This is also called Infrastructure as Code or (IaC).
 
 ARM templates are declarative, meaning you describe what you want rather than how you want it. In practice this means you’re not writing code to actually create the resources, but simply state which resources you want to have.
