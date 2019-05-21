@@ -21,7 +21,7 @@ Our starting point is to create an ARM Template (JSON format) for our environmen
 - Storage Account (for diagnostics)
  - Virtual Machines (using Managed Disks) assigned to our cycle cloud Head Node.
 
-= Information for Managed Disks can be found here – https://docs.microsoft.com/en-au/azure/storage/-storage-managed-disks-overview
+Information for Managed Disks can be found here – https://docs.microsoft.com/en-au/azure/storage/-storage-managed-disks-overview
 
 The ARM Template and parameters file are available here
 
@@ -75,7 +75,6 @@ Now we need to send our commit, to do this run
 
 ```
 git commit -m "Initial check-in."
-[/code]
 ```
 
 We can now run the commands supplied by VSTS at our command prompt. First run
