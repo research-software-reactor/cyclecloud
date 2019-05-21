@@ -1,0 +1,24 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "storageAccounts_destroymediag_name": {
+            "value": null
+        },
+        "virtualMachines_CycleCloudVm01_name": {
+            "value": null
+        },
+        "virtualNetworks_DESTROYME_vnet_name": {
+            "value": null
+        },
+        "networkInterfaces_cyclecloudvm01707_name": {
+            "value": null
+        },
+        "publicIPAddresses_CycleCloudVm01_ip_name": {
+            "value": null
+        },
+        "networkSecurityGroups_CycleCloudVm01_nsg_name": {
+            "value": null
+        }
+    }
+}
