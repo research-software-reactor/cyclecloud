@@ -4,31 +4,34 @@
     "parameters": {
         "storageAccounts_myresourcegroupdiag_name": {
             "defaultValue": "myresourcegroupdiag",
-            "type": "String"
+            "type": "string"
         },
         "virtualMachines_CycleCloudVm01_name": {
             "defaultValue": "CycleCloudVm01",
-            "type": "String"
+            "type": "string"
         },
         "virtualNetworks_MYRESOURCEGROUP_vnet_name": {
             "defaultValue": "MYRESOURCEGROUP-vnet",
-            "type": "String"
+            "type": "string"
         },
         "networkInterfaces_cyclecloudvm01707_name": {
             "defaultValue": "cyclecloudvm01707",
-            "type": "String"
+            "type": "string"
         },
         "publicIPAddresses_CycleCloudVm01_ip_name": {
             "defaultValue": "CycleCloudVm01-ip",
-            "type": "String"
+            "type": "string"
         },
         "networkSecurityGroups_CycleCloudVm01_nsg_name": {
             "defaultValue": "CycleCloudVm01-nsg",
-            "type": "String"
+            "type": "string"
         }
     },
     "variables": {
-        "guidNsg": "[newGuid()]"
+        "guidNsg": "[newGuid()]",
+        "guidPublicIpAddress": "[newGuid()]",
+        "guidVnet": "[newGuid()]",
+        "guidNetworkInterface": "[newGuid()]"
     },
     "resources": [
         {
@@ -38,7 +41,7 @@
             "location": "westeurope",
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "88110bec-7fcb-4daf-9980-e90493e67859",
+                "resourceGuid": "[variables('guidNsg')]",
                 "securityRules": [
                     {
                         "name": "HTTPS",
@@ -233,8 +236,7 @@
             },
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "c8c1bfdf-fc6d-4644-a00d-6e1e963ed75e",
-                "ipAddress": "137.117.206.13",
+                "resourceGuid": "[variables('guidPublicIpAddress')]",
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4,
@@ -248,19 +250,13 @@
             "location": "westeurope",
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "4b51c3cf-0f7c-4226-a454-a7b1134b52a7",
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "10.1.0.0/24"
-                    ]
-                },
+                "resourceGuid": "[variables('guidVnet')]",
                 "subnets": [
                     {
                         "name": "default",
                         "etag": "W/\"f1474c8d-2985-491a-83f7-af6da22daba3\"",
                         "properties": {
                             "provisioningState": "Succeeded",
-                            "addressPrefix": "10.1.0.0/24",
                             "delegations": []
                         }
                     }
@@ -379,7 +375,6 @@
             ],
             "properties": {
                 "provisioningState": "Succeeded",
-                "addressPrefix": "10.1.0.0/24",
                 "delegations": []
             }
         },
@@ -439,7 +434,8 @@
                 },
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_CycleCloudVm01_name')]",
-                    "adminUsername": "cocacola",
+                    "adminUsername": "[parameters('admin_username')]",
+                    "adminPassword": "[parameters('admin_password')]",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": false,
                         "provisionVMAgent": true
@@ -474,14 +470,13 @@
             ],
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "1a6b2c6f-e624-4feb-aaaf-0ab922797264",
+                "resourceGuid": "[variables('guidNetworkInterface')]",
                 "ipConfigurations": [
                     {
                         "name": "ipconfig1",
                         "etag": "W/\"0cf33961-ebe5-4c86-82c7-c4fb5c9b44b0\"",
                         "properties": {
                             "provisioningState": "Succeeded",
-                            "privateIPAddress": "10.1.0.4",
                             "privateIPAllocationMethod": "Dynamic",
                             "publicIPAddress": {
                                 "id": "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CycleCloudVm01_ip_name'))]"
@@ -494,12 +489,6 @@
                         }
                     }
                 ],
-                "dnsSettings": {
-                    "dnsServers": [],
-                    "appliedDnsServers": [],
-                    "internalDomainNameSuffix": "z5bvcs12b2tefjcuu4yrgs0suh.ax.internal.cloudapp.net"
-                },
-                "macAddress": "00-0D-3A-26-89-A6",
                 "enableAcceleratedNetworking": false,
                 "enableIPForwarding": false,
                 "networkSecurityGroup": {
