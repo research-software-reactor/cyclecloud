@@ -25,7 +25,7 @@ namespace PortalGenerated
         string resourceGroupName = "resource-group-name";
         string deploymentName = "deployment-name";
         string resourceGroupLocation = "resource-group-location"; // must be specified for creating a new resource group
-        string pathToTemplateFile = "path-to-template.json-on-disk";
+        string pathToTemplateFile = "path-to-create-infrastructure.json-on-disk";
         string pathToParameterFile = "path-to-parameters.json-on-disk";
         string tenantId = "tenant-id";
 
