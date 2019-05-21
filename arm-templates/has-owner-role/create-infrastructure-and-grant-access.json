@@ -2,6 +2,16 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "vm_admin_username": {
+            "type": "string"
+        },
+        "vm_admin_password": {
+            "type": "string"
+        },
+        "azure_region": {
+            "defaultValue": "westeurope",
+            "type": "string"
+        },
         "storageAccounts_myresourcegroupdiag_name": {
             "defaultValue": "myresourcegroupdiag",
             "type": "string"
@@ -38,7 +48,7 @@
             "type": "Microsoft.Network/networkSecurityGroups",
             "apiVersion": "2018-12-01",
             "name": "[parameters('networkSecurityGroups_CycleCloudVm01_nsg_name')]",
-            "location": "westeurope",
+            "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
                 "resourceGuid": "[variables('guidNsg')]",
@@ -229,7 +239,7 @@
             "type": "Microsoft.Network/publicIPAddresses",
             "apiVersion": "2018-12-01",
             "name": "[parameters('publicIPAddresses_CycleCloudVm01_ip_name')]",
-            "location": "westeurope",
+            "location": "[parameters('azure_region')]",
             "sku": {
                 "name": "Basic",
                 "tier": "Regional"
@@ -247,7 +257,7 @@
             "type": "Microsoft.Network/virtualNetworks",
             "apiVersion": "2018-12-01",
             "name": "[parameters('virtualNetworks_MYRESOURCEGROUP_vnet_name')]",
-            "location": "westeurope",
+            "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
                 "resourceGuid": "[variables('guidVnet')]",
@@ -270,7 +280,7 @@
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2018-07-01",
             "name": "[parameters('storageAccounts_myresourcegroupdiag_name')]",
-            "location": "westeurope",
+            "location": "[parameters('azure_region')]",
             "sku": {
                 "name": "Standard_LRS",
                 "tier": "Standard"
@@ -382,7 +392,7 @@
             "type": "Microsoft.Compute/virtualMachines",
             "apiVersion": "2018-10-01",
             "name": "[parameters('virtualMachines_CycleCloudVm01_name')]",
-            "location": "westeurope",
+            "location": "[parameters('azure_region')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/networkInterfaces', parameters('networkInterfaces_cyclecloudvm01707_name'))]",
                 "[resourceId('Microsoft.Storage/StorageAccounts', parameters('storageAccounts_myresourcegroupdiag_name'))]"
@@ -434,8 +444,8 @@
                 },
                 "osProfile": {
                     "computerName": "[parameters('virtualMachines_CycleCloudVm01_name')]",
-                    "adminUsername": "[parameters('admin_username')]",
-                    "adminPassword": "[parameters('admin_password')]",
+                    "adminUsername": "[parameters('vm_admin_username')]",
+                    "adminPassword": "[parameters('vm_admin_password')]",
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": false,
                         "provisionVMAgent": true
@@ -462,7 +472,7 @@
             "type": "Microsoft.Network/networkInterfaces",
             "apiVersion": "2018-12-01",
             "name": "[parameters('networkInterfaces_cyclecloudvm01707_name')]",
-            "location": "westeurope",
+            "location": "[parameters('azure_region')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Network/publicIPAddresses', parameters('publicIPAddresses_CycleCloudVm01_ip_name'))]",
                 "[resourceId('Microsoft.Network/virtualNetworks/subnets', parameters('virtualNetworks_MYRESOURCEGROUP_vnet_name'), 'default')]",
