@@ -420,8 +420,7 @@
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
-                            "storageAccountType": "StandardSSD_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachineName'), '_OsDisk_1_bdbab551dae84005af7aa558202b5e63'))]"
+                            "storageAccountType": "StandardSSD_LRS"
                         },
                         "diskSizeGB": 30
                     },
@@ -433,8 +432,7 @@
                             "caching": "ReadOnly",
                             "writeAcceleratorEnabled": false,
                             "managedDisk": {
-                                "storageAccountType": "StandardSSD_LRS",
-                                "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachineName'), '_lun_0_2_b686bc31c0ec4d1f924b6b3cc3575727'))]"
+                                "storageAccountType": "StandardSSD_LRS"
                             },
                             "diskSizeGB": 128
                         }
