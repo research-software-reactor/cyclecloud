@@ -507,6 +507,17 @@
                 "primary": true,
                 "tapConfigurations": []
             }
-        }
+        },
+        {
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2017-05-01",
+            "name": "[newGuid()]",
+            "properties": {
+              "roleDefinitionId": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
+              "_comment": "TODO: principalId needs to be the SP behind the resource's registration in Managed Identity!",
+              "principalId": "[]",
+              "scope": "[resourceGroup().id]"
+            }
+          }
     ]
 }

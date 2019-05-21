@@ -62,7 +62,7 @@ if [[ -z "$resourceGroupLocation" ]]; then
 fi
 
 #templateFile Path - template file to be used
-templateFilePath="create-infrastructure.json"
+templateFilePath="create-infrastructure-and-grant-access.json"
 
 if [ ! -f "$templateFilePath" ]; then
 	echo "$templateFilePath not found"

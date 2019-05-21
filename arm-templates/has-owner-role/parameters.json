@@ -2,6 +2,15 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
+        "vm_admin_username": {
+            "value": null
+        },
+        "vm_admin_password": {
+            "value": null
+        },
+        "azure_region": {
+            "value": null
+        },
         "storageAccounts_destroymediag_name": {
             "value": null
         },
