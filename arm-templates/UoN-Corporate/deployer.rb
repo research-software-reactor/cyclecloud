@@ -9,7 +9,7 @@ class Deployer
   # @param [String] resource_group the resource group to create or update and then deploy the template
   # @param [String] resource_group_location the location of the resource group
   def initialize(subscription_id, resource_group, resource_group_location)
-    raise ArgumentError.new("Missing template file 'template.json' in current directory.") unless File.exist?('template.json')
+    raise ArgumentError.new("Missing template file 'create-infrastructure.json' in current directory.") unless File.exist?('create-infrastructure.json')
     raise ArgumentError.new("Missing parameters file 'parameters.json' in current directory.") unless File.exist?('parameters.json')
     @resource_group = resource_group
     @subscription_id = subscription_id
@@ -32,7 +32,7 @@ class Deployer
     @client.resource_groups.create_or_update(@resource_group, params).value!
 
     # build the deployment from a json file template from parameters
-    template = File.read(File.expand_path(File.join(__dir__, 'template.json')))
+    template = File.read(File.expand_path(File.join(__dir__, 'create-infrastructure.json')))
     deployment = Azure::ARM::Resources::Models::Deployment.new
     deployment.properties = Azure::ARM::Resources::Models::DeploymentProperties.new
     deployment.properties.template = JSON.parse(template)
