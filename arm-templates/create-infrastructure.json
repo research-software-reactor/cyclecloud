@@ -252,12 +252,18 @@
             "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.1.0.0/24"
+                    ]
+                },
                 "subnets": [
                     {
                         "name": "default",
                         "etag": "W/\"f1474c8d-2985-491a-83f7-af6da22daba3\"",
                         "properties": {
                             "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.0.0/24",
                             "delegations": []
                         }
                     }
