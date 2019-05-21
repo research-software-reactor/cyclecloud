@@ -11,22 +11,22 @@
         "azure_region": {
             "value": null
         },
-        "storageAccounts_destroymediag_name": {
+        "storageAccountName": {
             "value": null
         },
-        "virtualMachines_CycleCloudVm01_name": {
+        "virtualMachineName": {
             "value": null
         },
-        "virtualNetworks_DESTROYME_vnet_name": {
+        "virtualNetworkName": {
             "value": null
         },
-        "networkInterfaces_cyclecloudvm01707_name": {
+        "networkInterfaceName": {
             "value": null
         },
-        "publicIPAddresses_CycleCloudVm01_ip_name": {
+        "publicIPAddressName": {
             "value": null
         },
-        "networkSecurityGroups_CycleCloudVm01_nsg_name": {
+        "networkSecurityGroupName": {
             "value": null
         }
     }
