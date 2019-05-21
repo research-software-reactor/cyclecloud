@@ -105,3 +105,26 @@ if(Test-Path $parametersFilePath) {
 } else {
     New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath;
 }
+
+# Parse the parameters file to get the VM name out
+$parsedParameters = Get-Content -Raw -Path parameters.json | ConvertFrom-Json
+$vmName = $parsedParameters.virtualMachines_CycleCloudVm01_name
+$contributorRoleDefinitionId = "b24988ac-6180-42a0-ab88-20f7382dd24c"
+
+# Get the ID of the VM we just created
+$vmServicePrincipalId = $(Get-AzureADServicePrincipal -Filter "DisplayName eq '$vmName'").ObjectId
+
+if($vmServicePrincipalId) {
+    # Try and assign the role
+    try {
+        New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionId $contributorRoleDefinitionId -ResourceGroupName $resourceGroupName
+    }
+    catch {
+        # Unable to assign role - possibly permissions error
+        Write-Host "Error assigning Contributor role to VM's Managed Identity Service Principal. Ask your Azure Administrator to run 'New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionId $contributorRoleDefinitionId -ResourceGroupName $resourceGroupName' in their Azure CLI. "
+    }
+}
+else {
+    # There was a problem getting the SP
+    Write-Host "Error getting Managed Identity Service Principal for VM $vmName. "
+}

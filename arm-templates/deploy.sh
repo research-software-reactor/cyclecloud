@@ -62,7 +62,7 @@ if [[ -z "$resourceGroupLocation" ]]; then
 fi
 
 #templateFile Path - template file to be used
-templateFilePath="create-infrastructure.json"
+templateFilePath="create-infrastructure-and-grant-access.json"
 
 if [ ! -f "$templateFilePath" ]; then
 	echo "$templateFilePath not found"
@@ -115,6 +115,8 @@ echo "Starting deployment..."
 	set -x
 	az group deployment create --name "$deploymentName" --resource-group "$resourceGroupName" --template-file "$templateFilePath" --parameters "@${parametersFilePath}"
 )
+
+# TODO: attempt assigning Contributor role to newly-provisioned VM
 
 if [ $?  == 0 ];
  then
