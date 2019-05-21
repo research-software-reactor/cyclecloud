@@ -40,6 +40,7 @@ Run the following command
 ```
 git clone https://github.com/username/CycleCloud
 ```
+
 You will now see a VSTSDemo folder in the root of C drive. Open the folder and delete the .git folder (it may be hidden)
 Our next step is to initiate our local folder as a Git project.
 Enter the following Git command from the VSTSDemo folder
