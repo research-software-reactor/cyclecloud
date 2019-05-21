@@ -391,8 +391,6 @@
                 "[resourceId('Microsoft.Storage/StorageAccounts', parameters('storageAccounts_myresourcegroupdiag_name'))]"
             ],
             "identity": {
-                "principalId": "9e10e768-ff96-486f-a359-f10fa180b539",
-                "tenantId": "67bda7ee-fd80-41ef-ac91-358418290a1e",
                 "type": "SystemAssigned"
             },
             "plan": {
