@@ -4,8 +4,11 @@ Deploying Azure CycleCloud into a subscription using an Azure Resource Manager t
 
 NB: Requirement is that need to be an Azure Subscription Owner and beable to create service principals if you cannot create service principals please reach out to your Central IT teams to request Cycle Cloud to be installed.
 
-Or utilise the template and script provided [arm-templates folder](https://github.com/research-software-reactor/cyclecloud/tree/master/arm-templates) which deploy the services using a powershell script and creates the necessary permissions to install Cycle Cloud without Subscription Owner Permissions. 
+## No Owner rights on your subscription 
 
+Utilise the provided template and script provided [arm-templates folder](https://github.com/research-software-reactor/cyclecloud/tree/master/arm-templates) which deploy the services using a powershell script and creates the necessary permissions to install Cycle Cloud without Subscription Owner Permissions. 
+
+## Network Settings deployed
 
 The default Cycle Cloud template deploys a VNET with 3 separate subnets:
 
@@ -15,7 +18,6 @@ The default Cycle Cloud template deploys a VNET with 3 separate subnets:
 
 - Provisions a VM in the `cycle` subnet and installs Azure CycleCloud on it.
 
-You can also install Cycle Cloud latest version from the Azure MarketPlace see https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azurecyclecloud.azure-cyclecloud-vm?tab=Overview 
 
 ## Pre-requisites for installation
 
@@ -39,6 +41,8 @@ You can also install Cycle Cloud latest version from the Azure MarketPlace see h
 - Save the output -- you'll need the `appId`, `password` and `tenant`. 
 
 - Alternatively, follow these [instructions to create a Service Principal](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-create-service-principal-portal) 
+
+If you do not have service princpial creation permissions and not the owner the subscription deploy the service using the provided template and script provided [arm-templates folder](https://github.com/research-software-reactor/cyclecloud/tree/master/arm-templates) which deploy the services using a powershell script and creates the necessary permissions to install Cycle Cloud without Subscription Owner Permissions.
 
 -  In this case, the authentication key is the `password`
 
@@ -106,7 +110,7 @@ _You could also reach the webserver through the VM's public IP address:_
 
 * After that, you will be prompted to create an admin user for the application server. For convenience, it is recommended that you use the same username specified in the parameters. 
 
-![createuser](images/cyclecloud-create-user.png)
+![createuser](Images/cyclecloud-create-user.png)
 
 
 ## Initialize the CycleCloud CLI
@@ -133,7 +137,7 @@ _You could also reach the webserver through the VM's public IP address:_
 
 - Both Bash and Powershell variants of the Azure Cloud Shell have the SSH client tools installed.
 - To generate an ssh-key:
-![ssh-keygen](images/powershell-ssh-keygen.png)
+![ssh-keygen](Images/powershell-ssh-keygen.png)
 
 - To obtain the public key of the generated key, run the following command and copy the output:
 
