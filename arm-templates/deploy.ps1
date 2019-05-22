@@ -60,6 +60,14 @@ Function RegisterRP {
     Register-AzureRmResourceProvider -ProviderNamespace $ResourceProviderNamespace;
 }
 
+# Install necessary Azure modules
+Uninstall-AzureRm #Conflicts with Az module
+Install-Module AzureAD
+Install-Module Az -AllowClobber # Allow conflicts with Az.Accounts
+
+# Enable backwards-compatibility with AzureRM
+Enable-AzureRmAlias
+
 #******************************************************************************
 # Script body
 # Execution begins here
@@ -101,15 +109,14 @@ else{
 # Start the deployment
 Write-Host "Starting deployment...";
 if(Test-Path $parametersFilePath) {
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath;
+    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath -debug
 } else {
-    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath;
+    New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath -debug
 }
 
 # Parse the parameters file to get the VM name out
-$parsedParameters = Get-Content -Raw -Path parameters.json | ConvertFrom-Json
-$vmName = $parsedParameters.virtualMachines_CycleCloudVm01_name
-$contributorRoleDefinitionId = "b24988ac-6180-42a0-ab88-20f7382dd24c"
+$parsedParameters = Get-Content -Raw -Path $parametersFilePath | ConvertFrom-Json
+$vmName = $parsedParameters.parameters.virtualMachineName.value
 
 # Get the ID of the VM we just created
 Connect-AzureAD -Confirm
@@ -118,11 +125,11 @@ $vmServicePrincipalId = $(Get-AzureADServicePrincipal -Filter "DisplayName eq '$
 if($vmServicePrincipalId) {
     # Try and assign the role
     try {
-        New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionId $contributorRoleDefinitionId -ResourceGroupName $resourceGroupName
+        New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionName Contributor -ResourceGroupName $resourceGroupName
     }
     catch {
         # Unable to assign role - possibly permissions error
-        Write-Host "Error assigning Contributor role to VM's Managed Identity Service Principal. Ask your Azure Administrator to run 'New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionId $contributorRoleDefinitionId -ResourceGroupName $resourceGroupName' in their Azure CLI. "
+        Write-Host "Error assigning Contributor role to VM's Managed Identity Service Principal. Ask your Azure Administrator to run 'New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionName Contributor -ResourceGroupName $resourceGroupName' in their Azure CLI. "
     }
 }
 else {
