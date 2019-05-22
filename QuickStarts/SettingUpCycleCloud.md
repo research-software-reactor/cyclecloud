@@ -4,7 +4,7 @@ Deploying Azure CycleCloud into a subscription using an Azure Resource Manager t
 
 NB: Requirement is that need to be an Azure Subscription Owner and beable to create service principals if you cannot create service principals please reach out to your Central IT teams to request Cycle Cloud to be installed.
 
-Or see the manual instructions and template with the arm-templates folder.
+Or utilise the template and script provided [arm-templates folder](https://github.com/research-software-reactor/cyclecloud/tree/master/arm-templates) which deploy the services using a powershell script and creates the necessary permissions to install Cycle Cloud without Subscription Owner Permissions. 
 
 
 The default Cycle Cloud template deploys a VNET with 3 separate subnets:
@@ -65,6 +65,9 @@ Create a SSH key this key will provide access to Cycle Cloud Head Node and all C
     - `Username`: The username for the CycleCloud VM. We suggest you use your username in the Azure portal, sans domain `@domain.com`
 
 [Or deploy using the Azure Marketplace](https://azuremarketplace.microsoft.com/en-us/marketplace/apps/azurecyclecloud.azure-cyclecloud-vm?tab=Overview)
+
+![createuser](Images/Markeplace.JPG)
+
 
 ### Using the AZ CLI 
 
