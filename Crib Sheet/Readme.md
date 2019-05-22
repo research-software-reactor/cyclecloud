@@ -15,6 +15,9 @@ However this requires the user deploying CycleCloud to themselves be an *Owner* 
 This is the approach taken in the ARM template.
 Further information and learning resources for [managed identities](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) on Azure.
 
+If you are deploying the template through Azure portal, once the deployment is complete, you will need to assign the role.
+Open the CycleCloud VM, go to Access Control (IAM), and add *Contributor*, to a VM, and select the CycleCloud server VM.
+
 ### Owner
 
 If you are an *Owner* on an institution tenant then you should be able to use the template without issue.  
