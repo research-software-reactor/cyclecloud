@@ -18,7 +18,7 @@
     The deployment name.
 
  .PARAMETER templateFilePath
-    Optional, path to the template file. Defaults to template.json.
+    Optional, path to the template file. Defaults to create-infrastructure.json.
 
  .PARAMETER parametersFilePath
     Optional, path to the parameters file. Defaults to parameters.json. If file is not found, will prompt for parameter values based on template.
@@ -41,7 +41,7 @@ param(
  $deploymentName,
 
  [string]
- $templateFilePath = "template.json",
+ $templateFilePath = "create-infrastructure.json",
 
  [string]
  $parametersFilePath = "parameters.json"
@@ -104,4 +104,28 @@ if(Test-Path $parametersFilePath) {
     New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath -TemplateParameterFile $parametersFilePath;
 } else {
     New-AzureRmResourceGroupDeployment -ResourceGroupName $resourceGroupName -Name $deploymentName -TemplateFile $templateFilePath;
+}
+
+# Parse the parameters file to get the VM name out
+$parsedParameters = Get-Content -Raw -Path parameters.json | ConvertFrom-Json
+$vmName = $parsedParameters.virtualMachines_CycleCloudVm01_name
+$contributorRoleDefinitionId = "b24988ac-6180-42a0-ab88-20f7382dd24c"
+
+# Get the ID of the VM we just created
+Connect-AzureAD -Confirm
+$vmServicePrincipalId = $(Get-AzureADServicePrincipal -Filter "DisplayName eq '$vmName'").ObjectId
+
+if($vmServicePrincipalId) {
+    # Try and assign the role
+    try {
+        New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionId $contributorRoleDefinitionId -ResourceGroupName $resourceGroupName
+    }
+    catch {
+        # Unable to assign role - possibly permissions error
+        Write-Host "Error assigning Contributor role to VM's Managed Identity Service Principal. Ask your Azure Administrator to run 'New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionId $contributorRoleDefinitionId -ResourceGroupName $resourceGroupName' in their Azure CLI. "
+    }
+}
+else {
+    # There was a problem getting the SP
+    Write-Host "Error getting Managed Identity Service Principal for VM $vmName. "
 }
