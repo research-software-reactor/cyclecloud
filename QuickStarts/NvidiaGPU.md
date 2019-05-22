@@ -19,19 +19,14 @@ https://azuremarketplace.microsoft.com/en-us/marketplace/apps/nvidia.ngc_azure_1
 
 To use the NVidia GPU Cloud Marketplace images, you must first accept the license agreement.
 
-The simplest way to do so is to run the following Azure CLI commands, this need to run by the subscription Owner:
-
-```
-az vm image accept-terms --urn "nvidia:ngc_azure_17_11:nvidia_gpu_cloud_18_06:18.08.0"
-```
 
 ## Pre-Requisites
 
 This sample requires the following:
 
-CycleCloud must be installed and running.
+CycleCloud must be installed and running. See 
 
-The CycleCloud CLI must be installed and configured for use.
+The CycleCloud CLI must be installed and configured for use. See https://docs.microsoft.com/en-us/azure/cyclecloud/install-cyclecloud-cli
 
 You must have access to log in to CycleCloud.
 
@@ -62,7 +57,8 @@ $ cyclecloud project upload my_locker
 
 For the upload to succeed, you must have a valid Pogo configuration for your target Locker.
 
-Importing the Cluster Template
+## Importing the Cluster Template
+
 To import the cluster:
 
 Open a terminal session with the CycleCloud CLI enabled.
