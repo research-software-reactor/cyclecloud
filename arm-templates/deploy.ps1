@@ -60,6 +60,10 @@ Function RegisterRP {
     Register-AzureRmResourceProvider -ProviderNamespace $ResourceProviderNamespace;
 }
 
+# Install necessary Azure modules
+Install-Module AzureAD
+Install-Module Az.Resources -AllowClobber # Allow conflicts with Az.Accounts
+
 #******************************************************************************
 # Script body
 # Execution begins here
