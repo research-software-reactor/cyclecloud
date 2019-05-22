@@ -455,12 +455,14 @@
                     "linuxConfiguration": {
                         "disablePasswordAuthentication": true,
                         "provisionVMAgent": true,
-                        "publicKeys": [
-                            {
-                                "keyData": "[parameters('sshPubkey')]",
-                                "path": "[variables('authorizedKeyFile')]"
-                            }
-                        ]
+                        "ssh": {
+                            "publicKeys": [
+                                {
+                                    "keyData": "[parameters('sshPubkey')]",
+                                    "path": "[variables('authorizedKeyFile')]"
+                                }
+                            ]
+                        }
                     },
                     "secrets": [],
                     "allowExtensionOperations": true
