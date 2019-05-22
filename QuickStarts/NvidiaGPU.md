@@ -7,7 +7,7 @@ The same technique may be used to add NVidia GPU Cloud to any CycleCloud cluster
 The two requirements are to use the NVidia GPU Cloud Marketplace image and apply the project spec.
 
 License
-To use the NVidia GPU Cloud container repository, you must create an account and obtain an API Key from the Nvidia GPU Cloud site.
+To use the NVidia GPU Cloud container repository, you must create an account and obtain an API Key from the Nvidia GPU Cloud site. see https://ngc.nvidia.com/catalog/landing 
 
 ## Nvidia GPU Azure Marketplace Image
 
