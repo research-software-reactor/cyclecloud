@@ -96,6 +96,17 @@ Create a SSH key this key will provide access to Cycle Cloud Head Node and all C
 
 The deployment process runs an installation script as a custom script extension, which installs and sets up CycleCloud. This process takes between 5-8mins
 
+## Ensuring Cycle Cloud Server is started
+
+CycleCloud must be installed and the head node running must be installed and running.
+
+Ensure that the cycle server is running via SSH to the head node.
+
+```
+$ cd /opt/cycle_server
+$ sudo ./cycle_server
+```
+
 ## Login to the CycleCloud application server
 
 * To connect to the CycleCloud webserver, first retrieve the FQDN of the CycleServer VM from the Azure Portal, then browse to https://cycleserverfqdn/. 
