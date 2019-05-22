@@ -108,7 +108,7 @@ if(Test-Path $parametersFilePath) {
 
 # Parse the parameters file to get the VM name out
 $parsedParameters = Get-Content -Raw -Path $parametersFilePath | ConvertFrom-Json
-$vmName = $parsedParameters.virtualMachines_CycleCloudVm01_name
+$vmName = $parsedParameters.parameters.virtualMachineName.value
 $contributorRoleDefinitionId = "b24988ac-6180-42a0-ab88-20f7382dd24c"
 
 # Get the ID of the VM we just created
