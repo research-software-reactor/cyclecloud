@@ -37,12 +37,6 @@
             "type": "string"
         }
     },
-    "variables": {
-        "guidNsg": "[newGuid()]",
-        "guidPublicIpAddress": "[newGuid()]",
-        "guidVnet": "[newGuid()]",
-        "guidNetworkInterface": "[newGuid()]"
-    },
     "resources": [
         {
             "type": "Microsoft.Network/networkSecurityGroups",
@@ -51,7 +45,6 @@
             "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidNsg')]",
                 "securityRules": [
                     {
                         "name": "HTTPS",
@@ -246,7 +239,6 @@
             },
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidPublicIpAddress')]",
                 "publicIPAddressVersion": "IPv4",
                 "publicIPAllocationMethod": "Dynamic",
                 "idleTimeoutInMinutes": 4,
@@ -260,13 +252,18 @@
             "location": "[parameters('azure_region')]",
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidVnet')]",
+                "addressSpace": {
+                    "addressPrefixes": [
+                        "10.1.0.0/24"
+                    ]
+                },
                 "subnets": [
                     {
                         "name": "default",
                         "etag": "W/\"f1474c8d-2985-491a-83f7-af6da22daba3\"",
                         "properties": {
                             "provisioningState": "Succeeded",
+                            "addressPrefix": "10.1.0.0/24",
                             "delegations": []
                         }
                     }
@@ -385,6 +382,7 @@
             ],
             "properties": {
                 "provisioningState": "Succeeded",
+                "addressPrefix": "10.1.0.0/24",
                 "delegations": []
             }
         },
@@ -422,8 +420,7 @@
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
-                            "storageAccountType": "StandardSSD_LRS",
-                            "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachineName'), '_OsDisk_1_bdbab551dae84005af7aa558202b5e63'))]"
+                            "storageAccountType": "StandardSSD_LRS"
                         },
                         "diskSizeGB": 30
                     },
@@ -435,8 +432,7 @@
                             "caching": "ReadOnly",
                             "writeAcceleratorEnabled": false,
                             "managedDisk": {
-                                "storageAccountType": "StandardSSD_LRS",
-                                "id": "[resourceId('Microsoft.Compute/disks', concat(parameters('virtualMachineName'), '_lun_0_2_b686bc31c0ec4d1f924b6b3cc3575727'))]"
+                                "storageAccountType": "StandardSSD_LRS"
                             },
                             "diskSizeGB": 128
                         }
@@ -480,7 +476,6 @@
             ],
             "properties": {
                 "provisioningState": "Succeeded",
-                "resourceGuid": "[variables('guidNetworkInterface')]",
                 "ipConfigurations": [
                     {
                         "name": "ipconfig1",

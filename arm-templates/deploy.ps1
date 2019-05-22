@@ -112,6 +112,7 @@ $vmName = $parsedParameters.virtualMachines_CycleCloudVm01_name
 $contributorRoleDefinitionId = "b24988ac-6180-42a0-ab88-20f7382dd24c"
 
 # Get the ID of the VM we just created
+Connect-AzureAD -Confirm
 $vmServicePrincipalId = $(Get-AzureADServicePrincipal -Filter "DisplayName eq '$vmName'").ObjectId
 
 if($vmServicePrincipalId) {
