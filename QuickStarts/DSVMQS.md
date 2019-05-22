@@ -105,5 +105,6 @@ Select the VM Node and then select actions in the command windows
 
 ![AzureCycleCloudSelectNode](Images/TurningOff1.JPG)
 
-![AzureCycleCloudShutdown](Images/TurningOff2.JPG)
+![AzureCycleCloudShutdown](Images/Turningoff2.JPG)
 
+Ensure you select the shutdown the VM and retain the disk if you wish to reuse the service terminating the server will delete all the resources and data disks.
