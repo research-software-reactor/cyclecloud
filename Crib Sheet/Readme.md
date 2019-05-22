@@ -16,7 +16,7 @@ This is the approach taken in the ARM template.
 Further information and learning resources for [managed identities](https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/overview) on Azure.
 
 If you are deploying the template through Azure portal, once the deployment is complete, you will need to assign the role.
-Open the CycleCloud VM, go to Access Control (IAM), and add *Contributor*, to a VM, and select the CycleCloud server VM.
+Open the Reseource Group that the CycleCloud VM sits in, go to Access Control (IAM), and add *Contributor*, to a VM, and select the CycleCloud server VM.
 
 ### Owner
 
