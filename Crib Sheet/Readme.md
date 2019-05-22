@@ -22,6 +22,28 @@ Open the CycleCloud VM, go to Access Control (IAM), and add *Contributor*, to a 
 
 If you are an *Owner* on an institution tenant then you should be able to use the template without issue.  
 
+## Service Principals
+
+Pre-requisites if your owner of the subscription you have full permissions to create Service Principal
+
+Azure CycleCloud requires a service principal with contributor access to your Azure subscription.
+
+The simplest way to create one is using the Azure CLI in Cloud Shell, which is already configured with your Azure subscription:
+
+```
+$ az ad sp create-for-rbac --name CycleCloudApp --years 1
+{
+        "appId": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "displayName": "CycleCloudApp",
+        "name": "http://CycleCloudApp",
+        "password": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+        "tenant": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+}
+
+```
+
+Save the output -- you'll need the appId, password and tenant. 
+
 ### Free Account
 
 If you have a Asure Educate Free Account you should be able to you the template without issue.
