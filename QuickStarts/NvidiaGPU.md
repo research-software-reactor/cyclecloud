@@ -11,7 +11,7 @@ To use the NVidia GPU Cloud container repository, you must create an account and
 
 ## Nvidia GPU Azure Marketplace Image
 
-![NvidiaGPU](Images\NvidiaGPU.JPG)
+![NvidiaGPU](Images/NvidiaGPU.JPG)
 
 https://azuremarketplace.microsoft.com/en-us/marketplace/apps/nvidia.ngc_azure_17_11?tab=Overview
 
