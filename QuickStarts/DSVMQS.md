@@ -1,4 +1,4 @@
-# Data Science Virtual Machine Deployment via Cycle CLoud 
+# Data Science Virtual Machine Deployment via Cycle Cloud 
 
 This quick start demonstrates launching the Microsoft Azure Data Science VM with a single standalone node. 
 
