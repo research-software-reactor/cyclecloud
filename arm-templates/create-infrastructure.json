@@ -9,7 +9,6 @@
             "type": "string"
         },
         "azure_region": {
-            "defaultValue": "westeurope",
             "type": "string"
         },
         "storageAccountName": {
