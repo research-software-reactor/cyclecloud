@@ -3,13 +3,22 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vm_admin_username": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The Linux username for the Cycle Cloud VM."
+            }
         },
-        "vm_admin_password": {
-            "type": "string"
+        "sshPubKey": {
+            "type": "string",
+            "metadata": {
+                "description": "The SSH public key for the Cycle Cloud VM user."
+            }
         },
         "azure_region": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The Azure region name, e.g. westeurope."
+            }
         },
         "storageAccountName": {
             "defaultValue": "cycleclouddiag",
@@ -35,6 +44,9 @@
             "defaultValue": "CycleCloudVm01-nsg",
             "type": "string"
         }
+    },
+    "variables": {
+        "authorizedKeyFile": "[concat('/home/', parameters('vm_admin_username'),'/.ssh/authorized_keys')]"
     },
     "resources": [
         {
@@ -440,10 +452,15 @@
                 "osProfile": {
                     "computerName": "[parameters('virtualMachineName')]",
                     "adminUsername": "[parameters('vm_admin_username')]",
-                    "adminPassword": "[parameters('vm_admin_password')]",
                     "linuxConfiguration": {
-                        "disablePasswordAuthentication": false,
-                        "provisionVMAgent": true
+                        "disablePasswordAuthentication": true,
+                        "provisionVMAgent": true,
+                        "publicKeys": [
+                            {
+                                "keyData": "[parameters('sshPubkey')]",
+                                "path": "[variables('authorizedKeyFile')]"
+                            }
+                        ]
                     },
                     "secrets": [],
                     "allowExtensionOperations": true

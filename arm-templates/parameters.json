@@ -5,7 +5,7 @@
         "vm_admin_username": {
             "value": null
         },
-        "vm_admin_password": {
+        "sshPubKey": {
             "value": null
         },
         "azure_region": {
