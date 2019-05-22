@@ -3,13 +3,22 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "vm_admin_username": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The Linux username for the Cycle Cloud VM."
+            }
         },
         "sshPubKey": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The SSH public key for the Cycle Cloud VM user."
+            }
         },
         "azure_region": {
-            "type": "string"
+            "type": "string",
+            "metadata": {
+                "description": "The Azure region name, e.g. westeurope."
+            }
         },
         "storageAccountName": {
             "defaultValue": "cycleclouddiag",
