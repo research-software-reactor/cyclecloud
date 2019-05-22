@@ -126,10 +126,14 @@ if($vmServicePrincipalId) {
     # Try and assign the role
     try {
         New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionName Contributor -ResourceGroupName $resourceGroupName
+        New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionName Reader -Scope "/subscriptions/$subscriptionId"
     }
     catch {
         # Unable to assign role - possibly permissions error
-        Write-Host "Error assigning Contributor role to VM's Managed Identity Service Principal. Ask your Azure Administrator to run 'New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionName Contributor -ResourceGroupName $resourceGroupName' in their Azure CLI. "
+        Write-Host "Error assigning Contributor role to VM's Managed Identity Service Principal."
+        Write-Host "Ask your Azure Administrator to run the following in their Azure CLI:"
+        Write-Host "1) New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionName Contributor -ResourceGroupName $resourceGroupName"
+        Write-Host "2) New-AzRoleAssignment -ObjectId $vmServicePrincipalId -RoleDefinitionName Reader -Scope `"/subscriptions/$subscriptionId`""
     }
 }
 else {
