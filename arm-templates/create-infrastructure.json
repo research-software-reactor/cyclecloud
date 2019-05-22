@@ -5,7 +5,7 @@
         "vm_admin_username": {
             "type": "string"
         },
-        "vm_admin_password": {
+        "sshPubKey": {
             "type": "string"
         },
         "azure_region": {
@@ -35,6 +35,9 @@
             "defaultValue": "CycleCloudVm01-nsg",
             "type": "string"
         }
+    },
+    "variables": {
+        "authorizedKeyFile": "[concat('/home/', parameters('vm_admin_username'),'/.ssh/authorized_keys')]"
     },
     "resources": [
         {
@@ -440,10 +443,15 @@
                 "osProfile": {
                     "computerName": "[parameters('virtualMachineName')]",
                     "adminUsername": "[parameters('vm_admin_username')]",
-                    "adminPassword": "[parameters('vm_admin_password')]",
                     "linuxConfiguration": {
-                        "disablePasswordAuthentication": false,
-                        "provisionVMAgent": true
+                        "disablePasswordAuthentication": true,
+                        "provisionVMAgent": true,
+                        "publicKeys": [
+                            {
+                                "keyData": "[parameters('sshPubkey')]",
+                                "path": "[variables('authorizedKeyFile')]"
+                            }
+                        ]
                     },
                     "secrets": [],
                     "allowExtensionOperations": true
