@@ -15,3 +15,4 @@ Getting Cycle Cloud working for people in personal or organisational Azure Subsc
 - Azure DevOps Pipeline for Github to deploy Cycle Cloud 
 - Tutorial on Cloud Cycle usage step by step for deployment of DSVM/Anaconda.
 
+Please see https://github.com/research-software-reactor/cyclecloud/blob/master/QuickStarts/SettingUpCycleCloud.md for setting up Cycle Cloud.
